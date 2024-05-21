@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Book</title>
+    <!-- Include Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+    <h1>Update Book</h1>
+    <form th:action="@{/web/book/edit/{id}(id=${id})}" th:object="${book}" method="post">
+        <div class="input-field">
+            <input type="text" th:field="*{title}" id="title"/>
+            <label for="title">New Title</label>
+        </div>
+        <div class="input-field">
+            <select th:field="*{author}">
+                <option value="" disabled selected>Choose author</option>
+                <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.fullName}"></option>
+            </select>
+            <label>New Author</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Update
+            <!--            <i class="material-icons right">send</i>-->
+        </button>
+    </form>
+</div>
+<!-- Include Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
+</body>
+</html>
